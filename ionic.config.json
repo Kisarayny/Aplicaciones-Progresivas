@@ -1,0 +1,7 @@
+{
+  "name": "hoia_mundo_sarai",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
