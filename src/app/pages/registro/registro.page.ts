@@ -119,6 +119,25 @@ export class RegistroPage {
   
       console.log('Se registro el usuario de manera exitosa:', nuevousuario);
     
+      // Limpiar los campos después de registrar el usuario
+    this.email = '';
+    this.fullName = '';
+    this.username = '';
+    this.password = '';
+    this.confirmPassword = '';
+    this.birthDate = '';
+
+    // Resetear los errores
+    this.showEmailError = false;
+    this.showFullNameError = false;
+    this.showUsernameError = false;
+    this.showPasswordError = false;
+    this.showConfirmPasswordError = false;
+    this.showBirthDateError = false;
+
+    // Deshabilitar el botón hasta que todos los campos sean válidos nuevamente
+    this.isValid = false;
+    
     
     } else {
       console.log('UPS Algo paso al registrase');
