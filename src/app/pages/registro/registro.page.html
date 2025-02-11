@@ -1,13 +1,45 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>registro</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">registro</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="register-container">
+    <ion-card class="register-card">
+      <ion-card-header>
+        <ion-card-title>REGISTRO</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-item>
+          <ion-input label="Correo Electrónico" type="email" placeholder="Email" [(ngModel)]="email" (ionInput)="validateFields($event, 'email')"></ion-input>
+        </ion-item>
+        <p *ngIf="showEmailError" class="error-message">El correo no es válido</p>
+
+        <ion-item>
+          <ion-input label="Nombre Completo" placeholder="Full Name" [(ngModel)]="fullName" (ionInput)="validateFields($event, 'fullName')"></ion-input>
+        </ion-item>
+        <p *ngIf="showFullNameError" class="error-message">El nombre es obligatorio</p>
+
+        <ion-item>
+          <ion-input label="Usuario" placeholder="Username" [(ngModel)]="username" (ionInput)="validateFields($event, 'username')"></ion-input>
+        </ion-item>
+        <p *ngIf="showUsernameError" class="error-message">El usuario es obligatorio</p>
+
+        <ion-item>
+          <ion-input label="Contraseña" type="password" placeholder="Password" [(ngModel)]="password" (ionInput)="validateFields($event, 'password')"></ion-input>
+        </ion-item>
+        <p *ngIf="showPasswordError" class="error-message">La contraseña es obligatoria</p>
+
+        <ion-item>
+          <ion-input label="Confirmar Contraseña" type="password" placeholder="Confirm Password" [(ngModel)]="confirmPassword" (ionInput)="validateFields($event, 'confirmPassword')"></ion-input>
+        </ion-item>
+        <p *ngIf="showConfirmPasswordError" class="error-message">Tus contraseñas no coinciden, intentalo de nuevo</p>
+
+        <ion-item>
+          <ion-input label="Fecha de Nacimiento" type="date" [(ngModel)]="birthDate"></ion-input>
+        </ion-item>
+        <p *ngIf="showBirthDateError" class="error-message">La fecha de nacimiento es obligatoria</p>
+
+        <ion-button expand="full" (click)="registerUser()" [disabled]="!isValid">
+          Registrarse
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>

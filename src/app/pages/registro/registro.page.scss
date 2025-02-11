@@ -1,0 +1,21 @@
+.register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 20px;
+  }
+  
+  .register-card {
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 14px;
+    text-align: left;
+    margin-left: 15px;
+  }
+  
