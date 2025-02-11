@@ -1,2 +1,10 @@
 // For information on how to create your own theme, please see:
 // http://ionicframework.com/docs/theming/
+:root {
+    --ion-color-primary: #e546f3; /* Cambia este valor por tu color deseado */
+    --ion-color-primary-rgb: 230, 70, 243; /* RGB del color */
+    --ion-color-primary-contrast: #000000; /* Color del texto en el botón */
+    --ion-color-primary-shade: #bf3fd1; /* Sombra del color */
+    --ion-color-primary-tint: #d85eff; /* Tinte de color cuando está activado */
+  }
+  
