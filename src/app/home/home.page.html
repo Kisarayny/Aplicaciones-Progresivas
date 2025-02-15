@@ -1,43 +1,16 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>Mi aplicación</ion-title>
+    <ion-title>Home</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <div id="container" style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%;">
-    <strong>Este es mi Hola Mundo</strong>
+<ion-content class="ion-padding">
+  <div class="home-container">
+    <img src="assets/logo.png" alt="Bienvenido" class="welcome-image" />
 
-    <br><br>
+    <h2>¡Holaaaaaa!!!!</h2>
+    <p>Bienvenido a nuestra aplicación.</p>
 
-    <ion-item>
-      <!-- [(ngModel)]="username" Vinculación bidireccional, almacena el valor en la propiedad 'username' -->
-      <!-- (ionInput)="validateFields($event, 'username')"   Evento que se dispara al escribir, valida el campo -->
-
-      <ion-input label="Ingresa tu nombre" placeholder="Username" [(ngModel)]="username" (ionInput)="validateFields($event, 'username')">
-      </ion-input>
-    </ion-item>
-
-    <!-- Mensaje de error para el campo 'username', se muestra si 'showUsernameError' es verdadero -->
-    <p *ngIf="showUsernameError" style="color: red; font-size: 14px;">!!El usuario es obligatorio¡¡</p>
-
-    <br>
-
-    <ion-item>
-      <ion-input 
-        label="Ingresa tu contraseña" type="password" placeholder="Password" [(ngModel)]="password" (ionInput)="validateFields($event, 'password')">
-      </ion-input>
-    </ion-item>
-    <p *ngIf="showPasswordError" style="color: red; font-size: 14px;">¡¡La contraseña es obligatoria!!</p>
-
-    <br>
-
-    <ion-button (click)="openModal()" [disabled]="!isValid">
-      No muestres tu información privadaa
-    </ion-button>
-    
-    <ion-button routerLink="/registro">Registrarte!!!</ion-button>
-
-    
+    <ion-button expand="full" color="danger" (click)="logout()">Cerrar Sesión</ion-button>
   </div>
 </ion-content>

@@ -1,92 +1,30 @@
+.home-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  text-align: center;
+}
 
+.welcome-image {
+  width: 150px;
+  height: auto;
+  margin-bottom: 20px;
+}
 
 h2 {
   font-size: 24px;
-  margin-bottom: 20px;
-  color: #333;
+  color: #3880ff;
+  margin-bottom: 10px;
 }
 
-ion-item {
-  margin-bottom: 20px;
-}
-
-.error-text {
-  color: red;
-  font-size: 14px;
-  margin-top: 5px;
-}
-
-.submit-btn {
-  background-color: #ce27ddc2; 
-  color: white;
+p {
   font-size: 16px;
-  font-weight: bold;
-  padding: 10px 0;
-  border-radius: 5px;
+  color: #666;
+  margin-bottom: 20px;
 }
 
-.submit-btn:disabled {
-  background-color: #ccc;
-}
-
-ion-label {
-  font-size: 16px;
-  color: #333;
-}
-
-.custom-button {
-  background-color: #e546f3 !important; /* Color de fondo */
-  color: rgb(0, 0, 0) !important; /* Color del texto */
-}
-
-.custom-button:disabled {
-  background-color: #e90fd7 !important; /* Color de fondo cuando está deshabilitado */
-}
-
-
-/* Estilos para la modal */
-.custom-alert {
-  --background: #ffffff;
-  --border-radius: 8px;
-  --box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-
-  .modal-content {
-    padding: 20px;
-    text-align: center;
-  }
-
-  .modal-text {
-    color: #4b4b4b;
-    font-size: 18px;
-    font-weight: bold;
-  }
-
-  p {
-    margin-bottom: 12px;
-    font-size: 16px;
-    color: #333;
-  }
-
-  ion-button {
-    background-color: #e546f3; /* Color de fondo del botón */
-    color: #fff;
-    border-radius: 5px;
-    font-weight: bold;
-    padding: 10px;
-  }
-}
-
-/* Estilo de la modal cuando está en la pantalla */
-.custom-alert .modal-wrapper {
-  animation: slideIn 0.3s ease-out;
-}
-
-/* Animación de la modal */
-@keyframes slideIn {
-  0% {
-    transform: translateY(50%);
-  }
-  100% {
-    transform: translateY(0);
-  }
+ion-button {
+  width: 80%;
 }

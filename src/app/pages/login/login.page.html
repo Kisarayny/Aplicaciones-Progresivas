@@ -1,0 +1,55 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Mi aplicación</ion-title>
+  </ion-toolbar>
+</ion-header>
+<!-- "author: 'Sarai Islas Chávez'"-->
+
+
+<ion-content [fullscreen]="true">
+  <!-- Mostrar la imagen y el loading spinner solo hasta que se cargue el login -->
+  <div *ngIf="!showLoginForm" id="loadingContainer" style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%;">
+    <!-- Logo con animación de desvanecimiento -->
+    <ion-img id="logo" src="assets/logo.png" style="max-width: 200px; margin-bottom: 20px;"></ion-img>
+    
+    <!-- Spinner -->
+    <ion-spinner name="crescent" style="margin-bottom: 10px;"></ion-spinner>
+    
+    <!-- Texto "Cargando ..." debajo del spinner -->
+    <p style="font-size: 16px; color: #666;">Cargando...</p>
+  </div>
+
+  <!-- Mostrar el formulario de login después del loading -->
+  <div *ngIf="showLoginForm" id="loginForm" style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%;">
+    <strong>Este es mi Hola Mundo</strong>
+
+    <br><br>
+
+    <ion-item>
+      <ion-input label="Ingresa tu nombre" placeholder="Username" [(ngModel)]="username" (ionInput)="validateFields($event, 'username')"></ion-input>
+    </ion-item>
+    <p *ngIf="showUsernameError" style="color: red; font-size: 14px;">¡¡El usuario es obligatorio!!</p>
+
+    <br>
+
+    <ion-item>
+      <ion-input label="Ingresa tu contraseña" type="password" placeholder="Password" [(ngModel)]="password" (ionInput)="validateFields($event, 'password')"></ion-input>
+    </ion-item>
+    <p *ngIf="showPasswordError" style="color: red; font-size: 14px;">¡¡La contraseña es obligatoria!!</p>
+
+    <br>
+
+    <ion-button (click)="login()" [disabled]="!isValid">
+      Iniciar sesión
+    </ion-button>
+
+
+    <br><br>
+
+    <ion-button routerLink="/registro">
+      Registrarte!!!
+    </ion-button>
+  </div>
+</ion-content>
+
+
