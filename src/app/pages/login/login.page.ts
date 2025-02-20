@@ -1,24 +1,28 @@
 import { Component } from '@angular/core';
 import { AlertController, NavController, LoadingController } from '@ionic/angular';
+import { Firestore, doc, getDoc } from '@angular/fire/firestore';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
-  standalone:false,
+  standalone: false,
 })
 export class LoginPage {
   username: string = '';
   password: string = '';
-  isValid: boolean = false; // Indica si user o pass están vacíos
+
+  showLoginForm: boolean = true;
   showUsernameError: boolean = false;
-  showPasswordError: boolean = false; // Muestra msj de error 
-  showLoginForm: boolean = false; // Controla la visibilidad del formulario
+  showPasswordError: boolean = false;
+  isValid: boolean = false;
 
   constructor(
     private alertController: AlertController, 
     private navCtrl: NavController, 
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private firestore: Firestore
   ) {}
 
   ngOnInit() {
@@ -27,47 +31,17 @@ export class LoginPage {
       this.showLoginForm = true;
     }, 3000);
   }
-
+  
   validateFields(event: any, field: string) {
-    let inputValue = event.target.value;
+    const value = event.target.value.trim();
 
     if (field === 'username') {
-      this.username = inputValue.replace(/\s/g, '').toLowerCase();
-      this.showUsernameError = this.username.length === 0;
+      this.showUsernameError = value === '';
     } else if (field === 'password') {
-      this.password = inputValue.replace(/\s/g, '');
-      this.showPasswordError = this.password.length === 0;
+      this.showPasswordError = value === '';
     }
 
-    this.isValid = this.username.length > 0 && this.password.length > 0;
-    event.target.value = field === 'username' ? this.username : this.password;
-  }
-
-  async openModal() {
-    const alert = await this.alertController.create({
-      header: 'Los Datos Ingresados',
-      message: '',
-      buttons: [{
-        text: 'OK',
-        role: 'cancel',
-        handler: () => {
-          console.log('Cierra la modal');
-        }
-      }],
-      cssClass: 'custom-alert'
-    });
-
-    await alert.present();
-
-    const alertElement = document.querySelector('.custom-alert .alert-message');
-    if (alertElement) {
-      alertElement.innerHTML = `
-        <div class="modal-content">
-          <p><strong>Usuario:</strong> <span class="modal-text">${this.username}</span></p>
-          <p><strong>Contraseña:</strong> <span class="modal-text">${this.password}</span></p>
-        </div>
-      `;
-    }
+    this.isValid = !this.showUsernameError && !this.showPasswordError;
   }
 
   async login() {
@@ -75,38 +49,53 @@ export class LoginPage {
       message: 'Verificando credenciales...',
       duration: 3000
     });
-  
+
     await loading.present();
-  
-    setTimeout(async () => {
-      // Obtener la lista de usuarios desde el localStorage
-      const storedUsers = localStorage.getItem('users');
-      let users = storedUsers ? JSON.parse(storedUsers) : [];
-  
-      // Verificar si el usuario y contraseña ingresados coinciden con algún usuario registrado
-      const validUser = users.find((user: any) => user.username === this.username && user.password === this.password);
-  
-      if (validUser) {
-        // Si las credenciales son correctas, cambiar mensaje y redirigir a Home
-        loading.message = 'Bienvenido!';
-        
-        // Esperamos 3 segundos para dar tiempo a ver el mensaje
-        setTimeout(() => {
-          loading.dismiss();
+
+    try {
+      const auth = getAuth();
+      const userCredential = await signInWithEmailAndPassword(auth, this.username, this.password);
+      
+      // Obtener el UID del usuario autenticado
+      const user = userCredential.user;
+      console.log('✅ Usuario autenticado. UID:', user.uid);
+
+      // Intentar obtener los datos del usuario desde Firestore
+      const userDocRef = doc(this.firestore, 'users', user.uid);
+      const userDoc = await getDoc(userDocRef);
+
+      console.log('📄 Intentando obtener documento del usuario...');
+      console.log('🔍 Documento encontrado:', userDoc.exists());
+
+      if (userDoc.exists()) {
+        const userData = userDoc.data();
+        console.log('📄 Datos del usuario obtenidos:', userData);
+
+        const role = userData['role']; // Acceder con corchetes para evitar error TS4111
+        console.log('🔑 Rol del usuario:', role);
+
+        // Redirigir según el rol
+        if (role === 'admin') {
+          this.navCtrl.navigateForward('/admin-home');
+        } else {
           this.navCtrl.navigateForward('/home');
-        }, 1000);
+        }
       } else {
-        // Si las credenciales son incorrectas, mostrar la alerta de error
-        loading.dismiss();
-        
-        const alert = await this.alertController.create({
-          header: 'Error',
-          message: 'Credenciales incorrectas',
-          buttons: ['OK']
-        });
-        
-        await alert.present();
+        console.error('❌ Documento de usuario no encontrado en Firestore.');
+        throw new Error('No se pudo obtener los datos del usuario.');
       }
-    }, 3000); // Espera inicial de 3 segundos para mostrar el loading de "Verificando credenciales"
+
+      loading.dismiss();
+
+    } catch (error) {
+      console.error('❌ Error de autenticación:', error);
+      loading.dismiss();
+      const alert = await this.alertController.create({
+        header: 'Error',
+        message: (error as any).message || 'Credenciales incorrectas o usuario no encontrado.',
+        buttons: ['OK']
+      });
+      await alert.present();
+    }
   }
 }

@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Agregar Usuario</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form (submit)="registerUser()">
+    <ion-item>
+      <ion-label>Email</ion-label>
+      <ion-input [(ngModel)]="email" name="email" type="email" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Nombre Completo</ion-label>
+      <ion-input [(ngModel)]="fullName" name="fullName" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Usuario</ion-label>
+      <ion-input [(ngModel)]="username" name="username" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Contraseña</ion-label>
+      <ion-input [(ngModel)]="password" name="password" type="password" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Fecha de Nacimiento</ion-label>
+      <ion-input [(ngModel)]="birthDate" name="birthDate" type="date" required></ion-input>
+    </ion-item>
+
+    <ion-button expand="full" type="submit">Registrar</ion-button>
+  </form>
+</ion-content>

@@ -21,4 +21,8 @@ export class HomePage {
   logout() {
     this.navCtrl.navigateRoot('/login');
   }
+
+  goToTabs() {
+    this.navCtrl.navigateRoot('/tabs'); // Redirige a la página de Tabs
+  }
 }

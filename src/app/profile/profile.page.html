@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Mi Perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card *ngIf="userData">
+    <ion-card-header class="header-center">
+      <ion-avatar class="profile-avatar">
+        <img src="assets/img/default-avatar.png" alt="Perfil" />
+      </ion-avatar>
+      <ion-card-title>{{ userData.username }}</ion-card-title>
+      <ion-card-subtitle>{{ userData.email }}</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label><strong>Nombre:</strong></ion-label>
+          <ion-text>{{ userData.fullName }}</ion-text>
+        </ion-item>
+        <ion-item>
+          <ion-label><strong>Rol:</strong></ion-label>
+          <ion-text>{{ userData.role }}</ion-text>
+        </ion-item>
+        <ion-item>
+          <ion-label><strong>Último inicio de sesión:</strong></ion-label>
+          <ion-text>{{ userData.last_login }}</ion-text>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

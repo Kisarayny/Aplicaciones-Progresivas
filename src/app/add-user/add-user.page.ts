@@ -1,21 +1,21 @@
 import { Component } from '@angular/core';
 import { AlertController } from '@ionic/angular';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
-  selector: 'app-registro',
-  templateUrl: './registro.page.html',
-  styleUrls: ['./registro.page.scss'],
+  selector: 'app-add-user',
+  templateUrl: './add-user.page.html',
+  styleUrls: ['./add-user.page.scss'],
   standalone: false,
 })
-export class RegistroPage {
+export class AddUserPage {
   email: string = '';
   fullName: string = '';
   username: string = '';
   password: string = '';
   confirmPassword: string = '';
   birthDate: string = '';
-  role: string = '';  // Agregar esta variable para el rol
+  role: string = 'user';  // Define el rol aquí, o puede ser elegido por el admin
 
   showEmailError: boolean = false;
   showFullNameError: boolean = false;

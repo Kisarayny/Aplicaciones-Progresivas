@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Editar Usuario</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Lista desplegable para seleccionar un usuario -->
+  <ion-item>
+    <ion-label>Seleccionar Usuario</ion-label>
+    <ion-select [(ngModel)]="selectedUserId" (ionChange)="loadUserData()" placeholder="Selecciona un usuario">
+      <ion-select-option *ngFor="let user of users" [value]="user.id">{{ user.username }}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <!-- Formulario de edición de usuario, solo se muestra cuando se ha seleccionado un usuario -->
+  <form *ngIf="selectedUserId" (submit)="updateUser()">
+    <ion-item>
+      <ion-label>Email</ion-label>
+      <ion-input [(ngModel)]="email" name="email" type="email" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Nombre Completo</ion-label>
+      <ion-input [(ngModel)]="fullName" name="fullName" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Usuario</ion-label>
+      <ion-input [(ngModel)]="username" name="username" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Contraseña</ion-label>
+      <ion-input [(ngModel)]="password" name="password" type="password" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Fecha de Nacimiento</ion-label>
+      <ion-input [(ngModel)]="birthDate" name="birthDate" type="date" required></ion-input>
+    </ion-item>
+
+    <ion-button expand="full" type="submit">Actualizar</ion-button>
+  </form>
+</ion-content>
